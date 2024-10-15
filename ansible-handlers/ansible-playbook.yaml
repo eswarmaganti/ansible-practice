@@ -1,0 +1,13 @@
+---
+- name: Playbook to deploy the new static website to nginx server
+  hosts: all
+  become: yes
+  remote_user: ubuntu
+  roles:
+    - deploy-website
+
+  handlers:
+    - name: Restart Nginx
+      service:
+        name: nginx
+        state: restarted
