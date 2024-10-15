@@ -1,2 +1,1 @@
-[dev]
 54.165.140.213 ansible_ssh_private_key_file=/Users/eswarmaganti/.ssh/jenkins_ec2
