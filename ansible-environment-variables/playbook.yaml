@@ -1,0 +1,22 @@
+---
+- name: Demonstrating ansible enviroment variables
+  hosts: localhost
+  
+  # global playbook environment
+  environment: 
+    GLOBAL_PLAY_VAR: "This is a global environment variable"
+  
+  tasks:
+    - name: Accessing the system level environment variables
+      command: "echo $HOME"
+    
+    - name: Accessing the playbook level environment variable
+      command: "echo $GLOBAL_PLAY_VAR"
+
+    - name: Accessing the Task level environment variable
+      environment: 
+        TASK_VAR: "This is a task level env var"
+      command: "echo $TASK_VAR"
+
+    - name: Accessing the both global and task level environment variables
+      command: "echo $GLOBAL_PLAY_VAR $TASK_VAR"
