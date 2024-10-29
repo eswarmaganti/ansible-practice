@@ -1,0 +1,9 @@
+is_apache_install: false
+
+versions: 
+  - 10.1
+  - 5.2
+  - 10.4
+  - 2.1
+  - 4.2
+  - 8.5

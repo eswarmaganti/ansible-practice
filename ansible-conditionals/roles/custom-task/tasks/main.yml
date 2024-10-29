@@ -1,0 +1,42 @@
+---
+- name: Task to install apache based on flag
+  package:
+    name: apache2
+    state: present
+  when: is_apache_install
+
+- name: Printing all ansible facts
+  debug:
+    var: ansible_facts
+
+- name: Task to print the kernal version if OS Family is Darwin using ansible_facts
+  debug:
+    var: ansible_facts['kernel_version']
+  when: ansible_facts['os_family'] == 'Darwin'
+
+- name: Task to print the kernal version based on multiple conditions
+  debug:
+    var: ansible_facts['kernel_version']
+  when:
+    - ansible_facts['os_family'] == 'Darwin'
+    - ansible_facts['architecture'] == 'arm64'
+
+- name: Task to print kernal version based on complex condition
+  debug:
+    var: ansible_facts['kernel_version']
+  when: ansible_facts['os_family'] == 'Darwin' or ansible_facts['os_family'] == 'Debian' and ansible_facts['architecture'] == 'arm64' and ansible_facts['distribution_major_version'] | map('int') > 10
+
+- name: Using conditions with loops
+  debug:
+    var: item
+  loop: "{{versions}}"
+  when: item > 5
+
+- name: Registering a variable to save the contents of a file
+  command: "cat /users/eswarmaganti/Developer/Projects/DevOps/ansible-practice/README.md"
+  register: file_content
+
+- name: Printing the content of file based on condition
+  debug:
+    var: file_content.stdout_lines
+  when: file_content.stdout.find('ansible') != -1

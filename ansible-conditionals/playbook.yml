@@ -1,0 +1,7 @@
+---
+- name: Playbook to demonstrate the usage of ansible conditionals
+  gather_facts: true
+  hosts: localhost
+  remote_user: eswarmaganti
+  roles:
+    - custom-task
