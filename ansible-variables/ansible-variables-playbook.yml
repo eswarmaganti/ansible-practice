@@ -1,0 +1,83 @@
+---
+- name: Ansible Variables Playbook
+  hosts: localhost
+  vars:
+    message: "Hello, This is from Ansible" # string variable
+    is_enabled: false # boolean variable
+    fruits: # list variable
+      - apple
+      - banana
+      - orange
+      - mango
+    fruit_prices: # a dictionary variable
+      apple: 25
+      banana: 2
+      orange: 10
+      mango: 50
+    fruit_basket:
+      - name: John
+        fruits:
+          - apple
+          - orange
+      - name: Jane
+        fruits:
+          - mango
+          - banana
+
+  # including variables form other .yml files
+  vars_files:
+    - my-vars.yml
+  
+  tasks:
+    - name: String Variable in Ansible
+      debug:
+        var: message
+    
+    - name: Executing a task based on boolean variable
+      debug:
+        msg: "Output from Boolean Variable Task: {{is_enabled}}"
+      when: is_enabled
+    
+    - name: Printing the list variable
+      debug:
+        var: fruits
+    
+    - name: Accessing individual item from a list variable using indexing
+      debug:
+        var: fruits[1]
+    
+    - name: Accessing a range of items from a list variable using slicing
+      debug:
+        var: fruits[0:2]
+      
+    - name: Printing the values of dictionary variable
+      debug:
+        var: fruit_prices
+
+    - name: Accessing an individual item from a dictionary variable
+      debug:
+        var: fruit_prices.banana
+      
+    - name: Dynamic variable assignment using register tag
+      command: echo "{{fruit_prices.apple}}"
+      register: apple_price
+
+    - name: The task to print the price of an Apple 
+      debug:
+        var: apple_price.stdout
+    
+    - name: Referencing the nested variables
+      debug:
+        var: fruit_prices[fruit_basket[0].fruits[0]]
+
+    - name: Using jinja filters with variables
+      debug:
+        var: fruit_prices.keys() | map('count') 
+
+    - name: Accessing the varibles from external .yml files
+      debug:
+        var: my_info
+
+    - name: Accessing the variables from runtime cmd & vars-file
+      debug:
+        var: version
