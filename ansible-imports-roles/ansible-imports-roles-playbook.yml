@@ -1,0 +1,8 @@
+---
+- name: Playbook to Demonstrate Roles and Imports in Ansible
+  hosts: all
+  become: yes
+  remote_user: ubuntu
+  roles:
+    - custom-role
+    - install-apache

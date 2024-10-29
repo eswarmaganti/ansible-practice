@@ -1,0 +1,9 @@
+---
+- name: Installing the dependency packages
+  package:
+    name:
+      - nginx
+      - git
+      - curl
+    state: latest
+    update_cache: yes
