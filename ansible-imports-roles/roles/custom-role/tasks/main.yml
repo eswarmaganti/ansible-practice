@@ -1,0 +1,7 @@
+---
+- import_tasks: package.yml
+- import_tasks: message.yml
+- name: Restart the Nginx Server
+  service:
+    name: nginx
+    state: started

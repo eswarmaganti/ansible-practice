@@ -1,0 +1,5 @@
+---
+- name: Update the static content of nginx entry point page
+  copy:
+    content: "{{message}}"
+    dest: /var/www/html/index.html
