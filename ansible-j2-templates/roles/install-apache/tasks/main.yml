@@ -1,0 +1,16 @@
+- name: Installing Apache2 Server in Ubuntu Machine
+  package:
+    name: apache2
+    state: latest
+    update_cache: yes
+
+- name: Update the Apache2 server ports configuration
+  template:
+    src: apache-ports.j2
+    dest: /etc/apache2/ports.conf
+    mode: '0644'
+
+- name: Restart the Apache2 Server
+  service:
+    name: apache2
+    state: restarted

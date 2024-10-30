@@ -1,0 +1,8 @@
+---
+- name: Playbook to Install the Apache2 Server in Remote EC2 Machine
+  hosts: all
+  become: true
+  gather_facts: true
+  remote_user: ubuntu
+  roles:
+    - install-apache

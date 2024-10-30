@@ -1,0 +1,2 @@
+apache_http_port: 5050
+apache_https_port: 8000
