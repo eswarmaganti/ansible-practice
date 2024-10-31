@@ -1,0 +1,7 @@
+---
+- name: Playbook to demonstrate ansible error handling
+  become: true
+  remote_user: ubuntu
+  hosts: all
+  roles:
+    - custom-role

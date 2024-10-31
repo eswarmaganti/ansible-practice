@@ -1,0 +1,20 @@
+- import_tasks: packages.yml
+
+- name: Task to checkout the code from git repo
+  git:
+    repo: "{{GIT_REPO_URL}}"
+    dest: /opt/SP/student-mgmt-flask-app
+    version: main
+
+- name: Installing the flask app dependencies using pip
+  pip:
+    requirements: /opt/SP/student-mgmt-flask-app/requirements.txt
+    virtualenv: /opt/SP/student-mgmt-flask-app/venv
+    virtualenv_python: /usr/bin/python3
+
+- name: Run the flask application
+  shell:
+    chdir: /opt/SP/student-mgmt-flask-app
+    cmd: source venv/bin/activate && nohup flask run &
+    executable: /usr/bin/bash
+
