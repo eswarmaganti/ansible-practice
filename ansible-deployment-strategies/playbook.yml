@@ -1,0 +1,11 @@
+---
+- name: Playbook to deploy student management flask application
+  hosts: all
+  gather_facts: true
+  become: true
+  remote_user: ubuntu
+  environment: 
+    ansible_python_interpretor: /usr/bin/python3
+  roles:
+    - deploy-flask-app
+
