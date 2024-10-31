@@ -1,0 +1,29 @@
+---
+- name: Copy the index.html to remote server
+  copy:
+    src: index.html
+    dest: /home/ubuntu/index.html
+    mode: '0644'
+  ignore_errors: true
+  register: copy_output
+
+- name: Printing the copy result
+  debug:
+    var: copy_output
+
+- name: copy the index.html and failing the playbook execution if errors
+  copy: 
+    src: index.html
+    dest: /home/ubuntu/index.html
+    mode: '0644'
+  failed_when:
+    - '"Could not find or access" in copy_output.msg'
+    - copy_output.failed == true
+  any_errors_fatal: false
+
+- name: Create a file in remote server
+  command:
+    cmd: touch /home/ubuntu/my_file.txt
+    creates: /home/ubuntu/my_file.txt
+  register: create_op
+  changed_when: create_op.rc == 0
