@@ -6,6 +6,13 @@
     dest: /opt/SP/student-mgmt-flask-app
     version: main
 
+- name: Updating the directory permissions to application user
+  file:
+    dest: /opt/SP/student-mgmt-flask-app
+    owner: ubuntu
+    recurse: true
+  ignore_errors: true
+  
 - name: Installing the flask app dependencies using pip
   pip:
     requirements: /opt/SP/student-mgmt-flask-app/requirements.txt
@@ -15,6 +22,6 @@
 - name: Run the flask application
   shell:
     chdir: /opt/SP/student-mgmt-flask-app
-    cmd: source venv/bin/activate && nohup flask run &
+    cmd: source venv/bin/activate && nohup gunicorn -w 4 -t 3 --worker-class=gthread --bind 0.0.0.0:8000 main:app &
     executable: /usr/bin/bash
 
