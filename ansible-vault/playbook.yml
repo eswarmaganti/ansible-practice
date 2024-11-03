@@ -1,0 +1,8 @@
+---
+- name: Playbook to demonstrate the usage of ansible vault
+  hosts: localhost
+  gather_facts: true
+  remote_user: ubuntu
+  roles:
+    - custom-role
+

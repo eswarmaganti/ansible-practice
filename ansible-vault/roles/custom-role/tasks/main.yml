@@ -1,0 +1,4 @@
+---
+- name: Accessing the vault secrets
+  debug:
+    var: password
